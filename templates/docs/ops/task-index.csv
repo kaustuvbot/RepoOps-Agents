@@ -1,0 +1,2 @@
+id,title,status,area,priority,owner,branch,depends_on,path
+TASK-0000,Example task — delete this row,Done,Platform,Low,,,none,docs/ops/tasks/TASK-0000-example.md

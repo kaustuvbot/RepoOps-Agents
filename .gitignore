@@ -1,0 +1,17 @@
+.DS_Store
+
+.vscode/
+
+tmp/
+
+demo-project/node_modules/
+demo-project/.next/
+demo-project/out/
+demo-project/dist/
+demo-project/.turbo/
+demo-project/.vercel/
+
+demo-project/.codex/sessions/
+demo-project/.codex/memories/
+
+*.log
