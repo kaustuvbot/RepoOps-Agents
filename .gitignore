@@ -10,6 +10,7 @@ demo-project/out/
 demo-project/dist/
 demo-project/.turbo/
 demo-project/.vercel/
+demo-project/
 
 demo-project/.codex/sessions/
 demo-project/.codex/memories/
