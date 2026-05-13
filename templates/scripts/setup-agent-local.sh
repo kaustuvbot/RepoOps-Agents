@@ -67,6 +67,17 @@ install_claude_superpowers() {
   fi
 }
 
+install_claude_premrg_validate() {
+  if command -v npx >/dev/null 2>&1; then
+    echo "Installing premrg-validate for Claude Code..."
+    npx -y skills add JuliusBrussee/premrg-validate -a claude 2>/dev/null || {
+      echo "premrg-validate install failed — install manually from skill marketplace"
+    }
+  else
+    echo "npx not found — skipping premrg-validate."
+  fi
+}
+
 # Codex installations
 install_codex_caveman() {
   if command -v npx >/dev/null 2>&1; then
@@ -131,6 +142,7 @@ install_claude_context7
 install_claude_planning_with_files
 install_claude_renamer
 install_claude_superpowers
+install_claude_premrg_validate
 
 echo ""
 echo "=== Codex skills ==="
@@ -157,6 +169,7 @@ Installed for Claude Code:
   planning-with-files — planning task integration
   renamer — AI-powered file renaming and organization
   superpowers — additional Claude Code skills
+  premrg-validate — PR validation before merge
 
 Installed for Codex:
   caveman — token-efficient output mode
