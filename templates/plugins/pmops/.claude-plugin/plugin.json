@@ -15,9 +15,7 @@
     "./skills/release-task/",
     "./skills/handoff-task/",
     "./skills/board-audit/",
-    "./skills/renamer/rename/",
-    "./skills/renamer/pdf-split/",
-    "./skills/renamer/organize/"
+    "./skills/renamer/"
   ],
   "interface": {
     "displayName": "PM Ops",
