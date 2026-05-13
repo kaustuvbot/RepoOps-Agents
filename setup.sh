@@ -65,11 +65,13 @@ EOF
 
 ensure_codex_cli
 
+mkdir -p "$TARGET_REPO/.claude"
 mkdir -p "$TARGET_REPO/.codex/context"
 mkdir -p "$TARGET_REPO/.codex/skills/project-architecture"
 mkdir -p "$TARGET_REPO/.codex/scripts"
 mkdir -p "$TARGET_REPO/.agents/plugins"
 mkdir -p "$TARGET_REPO/scripts"
+mkdir -p "$TARGET_REPO/plugins/pmops/.claude-plugin"
 mkdir -p "$TARGET_REPO/plugins/pmops/.codex-plugin"
 mkdir -p "$TARGET_REPO/plugins/pmops/scripts"
 mkdir -p "$TARGET_REPO/plugins/pmops/skills/create-task"
@@ -86,14 +88,19 @@ mkdir -p "$TARGET_REPO/docs/ops/handoffs"
 mkdir -p "$TARGET_REPO/docs/ops/decisions"
 
 cp "$ROOT_DIR/templates/AGENTS.md"                               "$TARGET_REPO/AGENTS.md"
+cp "$ROOT_DIR/templates/CLAUDE.md"                                "$TARGET_REPO/CLAUDE.md"
 cp "$ROOT_DIR/templates/.agents/plugins/marketplace.json"        "$TARGET_REPO/.agents/plugins/marketplace.json"
+cp "$ROOT_DIR/templates/scripts/setup-agent-local.sh"           "$TARGET_REPO/scripts/setup-agent-local.sh"
 cp "$ROOT_DIR/templates/scripts/setup-codex-local.sh"            "$TARGET_REPO/scripts/setup-codex-local.sh"
+cp "$ROOT_DIR/templates/.claude/settings.local.json"      "$TARGET_REPO/.claude/settings.local.json"
+cp "$ROOT_DIR/templates/.claude/marketplace.json"         "$TARGET_REPO/.claude/marketplace.json"
 cp "$ROOT_DIR/templates/.codex/README.md"                        "$TARGET_REPO/.codex/README.md"
 cp "$ROOT_DIR/templates/.codex/config.toml"                      "$TARGET_REPO/.codex/config.toml"
 cp "$ROOT_DIR/templates/.codex/hooks.json"                       "$TARGET_REPO/.codex/hooks.json"
 cp "$ROOT_DIR/templates/.codex/context/project-architecture.md"  "$TARGET_REPO/.codex/context/project-architecture.md"
 cp "$ROOT_DIR/templates/.codex/skills/project-architecture/SKILL.md" "$TARGET_REPO/.codex/skills/project-architecture/SKILL.md"
 cp "$ROOT_DIR/templates/.codex/scripts/session-update.sh"        "$TARGET_REPO/.codex/scripts/session-update.sh"
+cp "$ROOT_DIR/templates/plugins/pmops/.claude-plugin/plugin.json" "$TARGET_REPO/plugins/pmops/.claude-plugin/plugin.json"
 cp "$ROOT_DIR/templates/plugins/pmops/.codex-plugin/plugin.json" "$TARGET_REPO/plugins/pmops/.codex-plugin/plugin.json"
 cp "$ROOT_DIR/templates/plugins/pmops/scripts/new-task.sh"       "$TARGET_REPO/plugins/pmops/scripts/new-task.sh"
 cp "$ROOT_DIR/templates/plugins/pmops/scripts/claim-task.sh"     "$TARGET_REPO/plugins/pmops/scripts/claim-task.sh"
@@ -128,6 +135,7 @@ cp "$ROOT_DIR/templates/docs/ops/decisions/DECISION_TEMPLATE.md" "$TARGET_REPO/d
 
 chmod +x "$TARGET_REPO/.codex/scripts/"*.sh
 chmod +x "$TARGET_REPO/plugins/pmops/scripts/"*.sh
+chmod +x "$TARGET_REPO/scripts/setup-agent-local.sh"
 chmod +x "$TARGET_REPO/scripts/setup-codex-local.sh"
 
 # Update .gitignore
@@ -160,7 +168,7 @@ fi
 cat <<EOF
 
 ╔══════════════════════════════════════════════════════════════╗
-║             repo codex layer bootstrapped successfully      ║
+║        repo AI-augmented layer bootstrapped successfully    ║
 ╚══════════════════════════════════════════════════════════════╝
 
 Target: $TARGET_REPO
@@ -168,14 +176,19 @@ Stack detected: $STACK
 
 Files created:
   AGENTS.md
+  CLAUDE.md
   .agents/plugins/marketplace.json
-  scripts/setup-codex-local.sh
+  scripts/setup-agent-local.sh
+  scripts/setup-codex-local.sh (backward-compatible wrapper)
+  .claude/settings.local.json
   .codex/README.md
   .codex/config.toml
   .codex/hooks.json
   .codex/context/project-architecture.md
   .codex/skills/project-architecture/SKILL.md
   .codex/scripts/session-update.sh
+  plugins/pmops/.claude-plugin/plugin.json
+  plugins/pmops/.codex-plugin/plugin.json
   plugins/pmops/scripts/new-task.sh
   plugins/pmops/scripts/claim-task.sh
   plugins/pmops/scripts/start-task.sh
@@ -183,7 +196,6 @@ Files created:
   plugins/pmops/scripts/handoff-task.sh
   plugins/pmops/scripts/prepare-pr.sh
   plugins/pmops/scripts/audit-board.sh
-  plugins/pmops/.codex-plugin/plugin.json
   plugins/pmops/skills/create-task/SKILL.md
   plugins/pmops/skills/start-task/SKILL.md
   plugins/pmops/skills/task-workflow/SKILL.md
@@ -212,14 +224,11 @@ Next steps:
        .codex/context/project-architecture.md
 $([ -n "$STACK_HINTS" ] && printf "     Suggested commands:\n$STACK_HINTS\n")
   2. Commit:
-       AGENTS.md  .agents/  .codex/  plugins/  scripts/  docs/ai/  docs/ops/
+       AGENTS.md  CLAUDE.md  .claude/  .agents/  .codex/  plugins/  scripts/  docs/ai/  docs/ops/
   3. Each developer should run once after clone:
-       ./scripts/setup-codex-local.sh
-  4. Each developer runs once after clone:
-       ./scripts/setup-codex-local.sh
-     (installs pmops + caveman, registers marketplace)
+       ./scripts/setup-agent-local.sh
 
-  5. Start using:
+  4. Start using:
        pmops:create-task
        pmops:start-task
        pmops:task-workflow
@@ -228,6 +237,7 @@ $([ -n "$STACK_HINTS" ] && printf "     Suggested commands:\n$STACK_HINTS\n")
        pmops:handoff-task
        pmops:board-audit
 
-       \$caveman — terse output mode
+       \$caveman — terse output mode (Codex)
+       /caveman — terse output mode (Claude Code)
 
 EOF

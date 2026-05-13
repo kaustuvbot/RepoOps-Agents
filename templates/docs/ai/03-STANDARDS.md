@@ -2,7 +2,8 @@
 
 ## Shared In Git
 
-- `AGENTS.md`
+- `AGENTS.md` / `CLAUDE.md` (both mirror each other)
+- `.claude/`
 - `.codex/`
 - `docs/ai/`
 - `docs/ops/`

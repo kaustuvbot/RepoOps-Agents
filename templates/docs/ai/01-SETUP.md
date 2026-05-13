@@ -1,6 +1,6 @@
 # 01 — Setup
 
-There is no `codex init` subcommand in the current Codex CLI.
+There is no `codex init` or `claude init` subcommand in the current CLI.
 
 This starter bootstrap is the equivalent.
 
@@ -15,10 +15,13 @@ After bootstrap, fill in `.codex/context/project-architecture.md` before the tea
 
 ## What Gets Created
 
-- `AGENTS.md`
-- `scripts/setup-codex-local.sh`
-- `.codex/` — context, scripts, skills, config, hooks
-- `plugins/pmops/` — PM Ops plugin
+- `AGENTS.md` — repo contract (Claude Code and Codex)
+- `CLAUDE.md` — Claude Code mirror of AGENTS.md
+- `scripts/setup-agent-local.sh` — per-developer setup (main script)
+- `scripts/setup-codex-local.sh` — backward-compatible wrapper for Codex
+- `.claude/` — Claude Code settings and config
+- `.codex/` — Codex context, scripts, skills, config, hooks
+- `plugins/pmops/` — PM Ops plugin (works with Claude Code and Codex)
 - `docs/ai/` — this folder
 - `docs/ops/` — project management layer
 
@@ -26,38 +29,41 @@ After bootstrap, fill in `.codex/context/project-architecture.md` before the tea
 
 ```
 AGENTS.md
+CLAUDE.md
 .codex/
+.claude/
 plugins/
 scripts/
 docs/ai/
 docs/ops/
 ```
 
-Do not commit `.agents/` — it is local to each developer's machine.
+Do not commit `.agents/` — local to each developer's machine.
 
 ## Per-Developer Setup (once after clone)
 
 ```bash
-./scripts/setup-codex-local.sh
+./scripts/setup-agent-local.sh
 ```
 
-This script:
-- installs Codex CLI if missing
-- registers the repo-local `pmops` plugin
-- installs caveman skill for Codex
+This script installs Claude Code and Codex plugins as appropriate for the detected tooling:
+- Claude Code: caveman, context7, planning-with-files, superpowers
+- Codex: caveman, context7, superpowers, planning-with-files
 
-Reopen Codex in the repo after running.
+Reopen Claude Code or Codex in the repo after running.
 
 ## Mandatory Skills & Tools
 
 | Layer | What it does |
 |-------|--------------|
 | `pmops:*` | Task lifecycle — create, start, work, release, handoff, close, audit |
-| `caveman` | Token-efficient output mode (`$caveman` prefix in Codex) |
+| `caveman` | Token-efficient output mode (`$caveman` prefix in Codex, `/caveman` in Claude Code) |
 | `context7` | Live library docs via MCP — resolves correct API for current lib versions |
+| `planning-with-files` | Planning task integration — stores plans in `.claude/plans/` |
+| `superpowers` | TDD, planning, code review, debugging, parallel agents, branch workflow |
 
 ## Manual Step After Bootstrap
 
 Fill in `.codex/context/project-architecture.md`.
-Codex reads this before non-trivial work. Leave it empty = degraded output.
+Claude Code and Codex read this before non-trivial work. Leave it empty = degraded output.
 The setup person owns this step.

@@ -5,20 +5,19 @@
 After cloning, run once:
 
 ```bash
-./scripts/setup-codex-local.sh
+./scripts/setup-agent-local.sh
 ```
 
 What it does:
-- installs Codex CLI if missing
-- registers the repo-local plugin marketplace
+- installs Claude Code and Codex plugins as appropriate
 - installs `pmops` plugin
-- installs `caveman` skill
+- installs `caveman`, `context7`, `planning-with-files`, `superpowers` skills
 
-Reopen Codex in the repo after running.
+Reopen Claude Code or Codex in the repo after running.
 
 ---
 
-## How To Work In Codex
+## How To Work With Claude Code or Codex
 
 All task work goes through `pmops:*` skills. Do not call `.codex/scripts/` directly.
 

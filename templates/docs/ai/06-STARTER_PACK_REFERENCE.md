@@ -2,13 +2,27 @@
 
 ## Top Level
 
-### `AGENTS.md`
+### `AGENTS.md` / `CLAUDE.md`
 
-Primary repo contract for Codex and developers.
+Primary repo contract for Claude Code and Codex. Both files mirror each other.
+
+### `scripts/setup-agent-local.sh`
+
+One-time per-developer setup. Main script that installs Claude Code and Codex plugins as appropriate.
 
 ### `scripts/setup-codex-local.sh`
 
-One-time per-developer setup. Installs Codex CLI, registers repo-local marketplace, installs `pmops` and `caveman`.
+Backward-compatible wrapper. Delegates to `setup-agent-local.sh`.
+
+## Repo Claude Code Layer
+
+### `.claude/settings.local.json`
+
+Claude Code repo settings, including local plugins and MCP configuration.
+
+### `.claude/marketplace.json`
+
+Repo-local plugin marketplace for Claude Code.
 
 ## Repo Codex Layer
 
@@ -40,13 +54,13 @@ Internal helpers. Do not call directly — use `pmops:*` skills.
 |--------|-----------|
 | `new-task.sh` | `pmops:create-task` |
 | `start-task.sh` | `pmops:start-task` |
-| `claim-task.sh` | `start-task.sh` (internal) |
+| `claim-task.sh` | `pmops:start-task` (internal) |
 | `prepare-pr.sh` | `pmops:release-task` |
 | `close-task.sh` | `pmops:close-task` |
 | `handoff-task.sh` | `pmops:handoff-task` |
 | `audit-board.sh` | `pmops:board-audit` |
 
-## Codex Docs
+## AI Docs
 
 ### `docs/ai/01-SETUP.md`
 
@@ -64,7 +78,11 @@ Repo-level rules.
 
 Day-to-day usage, skill reference, examples.
 
-### `docs/ai/05-STARTER_PACK_REFERENCE.md`
+### `docs/ai/05-SKILL_REFERENCE.md`
+
+Skill commands and usage.
+
+### `docs/ai/06-STARTER_PACK_REFERENCE.md`
 
 This file. Describes every file the starter creates.
 
@@ -106,13 +124,17 @@ Practical execution flow.
 
 ## PM Ops Plugin
 
+### `plugins/pmops/.claude-plugin/plugin.json`
+
+Defines the local `pmops` plugin for Claude Code.
+
 ### `plugins/pmops/.codex-plugin/plugin.json`
 
 Defines the local `pmops` Codex plugin.
 
 ### `plugins/pmops/skills/`
 
-Public skill interface:
+Public skill interface (works with both Claude Code and Codex):
 
 | Skill | Action |
 |-------|--------|

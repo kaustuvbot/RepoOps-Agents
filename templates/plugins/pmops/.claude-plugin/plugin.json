@@ -1,0 +1,39 @@
+{
+  "name": "pmops",
+  "version": "0.1.1",
+  "description": "Repo-native project management operations for task lifecycle, handoff, and release workflows.",
+  "author": {
+    "name": "Starter Pack",
+    "email": "noreply@example.com"
+  },
+  "license": "UNLICENSED",
+  "skills": [
+    "./skills/create-task/",
+    "./skills/start-task/",
+    "./skills/task-workflow/",
+    "./skills/close-task/",
+    "./skills/release-task/",
+    "./skills/handoff-task/",
+    "./skills/board-audit/",
+    "./skills/renamer/"
+  ],
+  "interface": {
+    "displayName": "PM Ops",
+    "shortDescription": "Task lifecycle skills for repo-native planning and execution",
+    "longDescription": "Use PM Ops to create, start, work, release, hand off, and audit tasks tracked in docs/ops.",
+    "developerName": "Starter Pack",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Start TASK-0001",
+      "Create a new task for auth work",
+      "Prepare TASK-0001 for PR"
+    ],
+    "brandColor": "#2563EB",
+    "screenshots": []
+  }
+}
